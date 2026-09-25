@@ -1,6 +1,6 @@
 # Ink DeFi Monitor
 
-**Live:** https://ink-defi-monitor-web-beta.vercel.app · API: [`/api/v1/health`](https://ink-defi-monitor-web-beta.vercel.app/api/v1/health)
+**Live:** https://ink-defi-monitor.vercel.app · API: [`/api/v1/health`](https://ink-defi-monitor.vercel.app/api/v1/health)
 
 A read-only, cross-protocol monitoring layer for Ink DeFi. It shows Tydro and Nado activity in one
 normalized event and metrics model, with a source attached to every figure.
