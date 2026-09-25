@@ -1,0 +1,24 @@
+[
+  {
+    "name": "symbol",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "name": "decimals",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "uint8"
+      }
+    ]
+  }
+]

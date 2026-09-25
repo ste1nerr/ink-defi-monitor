@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+*.db
+*.db-*
+indexer/*/generated
+indexer/*/build
+indexer/*/tests/.bin
+indexer/*/tests/.latest.json

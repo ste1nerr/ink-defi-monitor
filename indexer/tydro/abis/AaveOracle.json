@@ -1,0 +1,29 @@
+[
+  {
+    "name": "getAssetPrice",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "asset"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint256"
+      }
+    ]
+  },
+  {
+    "name": "BASE_CURRENCY_UNIT",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "uint256"
+      }
+    ]
+  }
+]

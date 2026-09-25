@@ -1,0 +1,54 @@
+specVersion: 1.0.0
+description: Tydro (Aave v3 on Ink) Pool events and hourly reserve snapshots for Ink DeFi Monitor
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Pool
+    network: ink
+    source:
+      # Tydro Pool proxy (docs.tydro.com → Smart Contracts); first Pool log at block 26821425
+      address: "0x2816cf15F6d2A220E789aA011D5EE4eB6c47FEbA"
+      abi: Pool
+      startBlock: 26821425
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - Reserve
+        - PoolEvent
+        - ReserveSnapshot
+      abis:
+        - name: Pool
+          file: ./abis/Pool.json
+        - name: ProtocolDataProvider
+          file: ./abis/ProtocolDataProvider.json
+        - name: AaveOracle
+          file: ./abis/AaveOracle.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Supply(indexed address,address,indexed address,uint256,indexed uint16)
+          handler: handleSupply
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256)
+          handler: handleWithdraw
+        - event: Borrow(indexed address,address,indexed address,uint256,uint8,uint256,indexed uint16)
+          handler: handleBorrow
+        - event: Repay(indexed address,indexed address,indexed address,uint256,bool)
+          handler: handleRepay
+        - event: LiquidationCall(indexed address,indexed address,indexed address,uint256,uint256,address,bool)
+          handler: handleLiquidationCall
+        - event: ReserveUsedAsCollateralEnabled(indexed address,indexed address)
+          handler: handleCollateralEnabled
+        - event: ReserveUsedAsCollateralDisabled(indexed address,indexed address)
+          handler: handleCollateralDisabled
+        - event: FlashLoan(indexed address,address,indexed address,uint256,uint8,uint256,indexed uint16)
+          handler: handleFlashLoan
+      blockHandlers:
+        - handler: handleSnapshotBlock
+          filter:
+            kind: polling
+            # ~1 hour at Ink's 1s block time
+            every: 3600
+      file: ./src/pool.ts

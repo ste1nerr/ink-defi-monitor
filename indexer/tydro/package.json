@@ -1,0 +1,15 @@
+{
+  "name": "@idm/tydro-subgraph",
+  "private": true,
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "goldsky subgraph deploy tydro-ink/$npm_package_version --path ."
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.98.1",
+    "@graphprotocol/graph-ts": "^0.38.2",
+    "matchstick-as": "^0.6.0"
+  }
+}

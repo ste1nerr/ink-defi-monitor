@@ -1,0 +1,315 @@
+[
+  {
+    "name": "Supply",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user"
+      },
+      {
+        "type": "address",
+        "name": "onBehalfOf",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount"
+      },
+      {
+        "type": "uint16",
+        "name": "referralCode",
+        "indexed": true
+      }
+    ]
+  },
+  {
+    "name": "Withdraw",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "to",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount"
+      }
+    ]
+  },
+  {
+    "name": "Borrow",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user"
+      },
+      {
+        "type": "address",
+        "name": "onBehalfOf",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount"
+      },
+      {
+        "type": "uint8",
+        "name": "interestRateMode"
+      },
+      {
+        "type": "uint256",
+        "name": "borrowRate"
+      },
+      {
+        "type": "uint16",
+        "name": "referralCode",
+        "indexed": true
+      }
+    ]
+  },
+  {
+    "name": "Repay",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "repayer",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount"
+      },
+      {
+        "type": "bool",
+        "name": "useATokens"
+      }
+    ]
+  },
+  {
+    "name": "LiquidationCall",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "collateralAsset",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "debtAsset",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "debtToCover"
+      },
+      {
+        "type": "uint256",
+        "name": "liquidatedCollateralAmount"
+      },
+      {
+        "type": "address",
+        "name": "liquidator"
+      },
+      {
+        "type": "bool",
+        "name": "receiveAToken"
+      }
+    ]
+  },
+  {
+    "name": "ReserveUsedAsCollateralEnabled",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      }
+    ]
+  },
+  {
+    "name": "ReserveUsedAsCollateralDisabled",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      }
+    ]
+  },
+  {
+    "name": "FlashLoan",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "target",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "initiator"
+      },
+      {
+        "type": "address",
+        "name": "asset",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount"
+      },
+      {
+        "type": "uint8",
+        "name": "interestRateMode"
+      },
+      {
+        "type": "uint256",
+        "name": "premium"
+      },
+      {
+        "type": "uint16",
+        "name": "referralCode",
+        "indexed": true
+      }
+    ]
+  },
+  {
+    "name": "UserEModeSet",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": true
+      },
+      {
+        "type": "uint8",
+        "name": "categoryId"
+      }
+    ]
+  },
+  {
+    "name": "ReserveDataUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "liquidityRate"
+      },
+      {
+        "type": "uint256",
+        "name": "stableBorrowRate"
+      },
+      {
+        "type": "uint256",
+        "name": "variableBorrowRate"
+      },
+      {
+        "type": "uint256",
+        "name": "liquidityIndex"
+      },
+      {
+        "type": "uint256",
+        "name": "variableBorrowIndex"
+      }
+    ]
+  },
+  {
+    "name": "MintedToTreasury",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "reserve",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amountMinted"
+      }
+    ]
+  },
+  {
+    "name": "IsolationModeTotalDebtUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "asset",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "totalDebt"
+      }
+    ]
+  },
+  {
+    "name": "getReservesList",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "address[]"
+      }
+    ]
+  }
+]

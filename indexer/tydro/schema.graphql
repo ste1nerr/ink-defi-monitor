@@ -1,0 +1,54 @@
+"A Tydro reserve (asset) seen by the Pool."
+type Reserve @entity(immutable: false) {
+  "Underlying asset address"
+  id: Bytes!
+  symbol: String!
+  decimals: Int!
+  firstSeenBlock: BigInt!
+  events: [PoolEvent!]! @derivedFrom(field: "reserve")
+  snapshots: [ReserveSnapshot!]! @derivedFrom(field: "reserve")
+}
+
+"""
+One user-facing Pool event. `type` is one of:
+supply, withdraw, borrow, repay, liquidation, collateral_change, flash_loan.
+Bookkeeping events (ReserveDataUpdated, MintedToTreasury, IsolationModeTotalDebtUpdated) are not stored.
+"""
+type PoolEvent @entity(immutable: true) {
+  "txHash ++ logIndex"
+  id: Bytes!
+  type: String!
+  reserve: Reserve!
+  "Position owner: onBehalfOf (supply/borrow), user (withdraw/repay/liquidated user/collateral), initiator (flash loan)"
+  user: Bytes!
+  "Raw amount in reserve decimals; debtToCover for liquidations; 0 for collateral_change"
+  amount: BigInt!
+  caller: Bytes
+  interestRateMode: Int
+  usedAsCollateral: Boolean
+  collateralAsset: Bytes
+  liquidatedCollateralAmount: BigInt
+  liquidator: Bytes
+  premium: BigInt
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+"Reserve state read on-chain every SNAPSHOT_INTERVAL blocks (~1h)."
+type ReserveSnapshot @entity(immutable: true) {
+  "reserve ++ blockNumber"
+  id: Bytes!
+  reserve: Reserve!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  totalSupplied: BigInt!
+  totalBorrowed: BigInt!
+  "ray (1e27) APR"
+  liquidityRate: BigInt!
+  "ray (1e27) APR"
+  variableBorrowRate: BigInt!
+  "TydroOracle price, 1e8 = 1 USD; null if the oracle call reverted"
+  priceUsd: BigInt
+}
