@@ -7,3 +7,4 @@ indexer/*/generated
 indexer/*/build
 indexer/*/tests/.bin
 indexer/*/tests/.latest.json
+.vercel

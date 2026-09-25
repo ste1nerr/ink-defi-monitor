@@ -14,7 +14,8 @@ const EnvSchema = z.object({
     .optional()
     .or(z.literal("").transform(() => undefined)),
   PORT: z.coerce.number().int().positive().default(8787),
-  CORS_ORIGIN: z.string().default("http://localhost:5173"),
+  /** Public read-only API → any origin by default; set to restrict. */
+  CORS_ORIGIN: z.string().default("*"),
 });
 
 const parsed = EnvSchema.parse(process.env);

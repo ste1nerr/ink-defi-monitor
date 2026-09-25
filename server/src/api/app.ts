@@ -79,9 +79,28 @@ function requireAdapter(id: string) {
   return adapter;
 }
 
+/**
+ * Shared-cache (CDN) lifetimes per route, in seconds, mirroring the server cache TTLs.
+ * On serverless hosts in-memory caches do not survive between instances, so the CDN
+ * absorbs repeat traffic; stale-while-revalidate keeps responses fast while refreshing.
+ */
+const CDN_CACHE_SECONDS: Array<[RegExp, number]> = [
+  [/^\/api\/v1\/health$/, 10],
+  [/^\/api\/v1\/protocols\/[^/]+\/history$/, 300],
+  [/^\/api\/v1\/(events|protocols\/[^/]+\/events)$/, 15],
+  [/^\/api\/v1\/protocols(\/[^/]+)?$/, 30],
+];
+
 export function createApp() {
   const app = new Hono();
+  // Public, read-only API: any origin may read it; no credentials are involved.
   app.use("/api/*", cors({ origin: env.corsOrigin }));
+  app.use("/api/*", async (c, next) => {
+    await next();
+    if (c.req.method !== "GET" || c.res.status !== 200) return;
+    const ttl = CDN_CACHE_SECONDS.find(([pattern]) => pattern.test(c.req.path))?.[1];
+    if (ttl) c.header("Cache-Control", `public, s-maxage=${ttl}, stale-while-revalidate=${ttl * 10}`);
+  });
 
   const v1 = new Hono();
 
