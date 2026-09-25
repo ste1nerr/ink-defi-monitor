@@ -36,9 +36,9 @@ export function NadoSummary({ title = "Nado · Perps & spot", link }: { title?: 
           <Stat label="Liquidations 24h" value={formatUsd(data.data.totals.liquidations24h)} />
           <Stat label="TVL" value={formatUsd(data.data.tvl)} />
           <Stat
-            label="Daily active"
+            label="Active today"
             value={formatCount(data.data.dailyActiveUsers)}
-            hint={`${formatCount(data.data.cumulativeSubaccounts)} subaccounts total`}
+            hint={`Nado's current-day count, resets 9:00 ET · ${formatCount(data.data.cumulativeSubaccounts)} subaccounts total`}
           />
         </div>
       )}

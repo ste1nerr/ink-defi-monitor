@@ -1,5 +1,7 @@
 # Ink DeFi Monitor
 
+**Live:** https://ink-defi-monitor-web-beta.vercel.app · API: [`/api/v1/health`](https://ink-defi-monitor-web-beta.vercel.app/api/v1/health)
+
 A read-only, cross-protocol monitoring layer for Ink DeFi. It shows Tydro and Nado activity in one
 normalized event and metrics model, with a source attached to every figure.
 
@@ -33,6 +35,12 @@ web/                   React + Vite + Tailwind + TanStack Query
 indexer/tydro/         Goldsky subgraph: Tydro Pool events + hourly reserve snapshots (see its README)
 docs/                  research, data sources
 ```
+
+## Deployment
+Vercel, from this repository (every push to `main` deploys). `npm run vercel-build` writes the
+[Build Output API](https://vercel.com/docs/build-output-api/v3) layout: the Vite site as static files and the
+Hono API as one Node.js function under `/api/*`. API responses carry `s-maxage` headers so the CDN absorbs
+repeat traffic. Set `INK_RPC_URL` and `GOLDSKY_TYDRO_URL` in the Vercel project's environment variables.
 
 ## Run locally
 ```bash
