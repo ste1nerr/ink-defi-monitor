@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: tydro-envio
+description: Tydro (Aave v3 on Ink) Pool events and hourly reserve snapshots (HyperIndex port of indexer/tydro)
+# Single chain; ids stay exactly as in the subgraph.
+disable_default_cross_chain: true
+# Event params arrive lowercase, matching graph-node's Bytes/Address hex output.
+address_format: lowercase
+contracts:
+  - name: Pool
+    abi_file_path: ./abis/Pool.json
+    events:
+      - event: Supply(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint16 indexed referralCode)
+      - event: Withdraw(address indexed reserve, address indexed user, address indexed to, uint256 amount)
+      - event: Borrow(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint8 interestRateMode, uint256 borrowRate, uint16 indexed referralCode)
+      - event: Repay(address indexed reserve, address indexed user, address indexed repayer, uint256 amount, bool useATokens)
+      - event: LiquidationCall(address indexed collateralAsset, address indexed debtAsset, address indexed user, uint256 debtToCover, uint256 liquidatedCollateralAmount, address liquidator, bool receiveAToken)
+      - event: ReserveUsedAsCollateralEnabled(address indexed reserve, address indexed user)
+      - event: ReserveUsedAsCollateralDisabled(address indexed reserve, address indexed user)
+      - event: FlashLoan(address indexed target, address initiator, address indexed asset, uint256 amount, uint8 interestRateMode, uint256 premium, uint16 indexed referralCode)
+chains:
+  - id: 57073 # Ink
+    start_block: 26821425 # first Pool log
+    end_block: ${ENVIO_END_BLOCK:-}
+    contracts:
+      - name: Pool
+        address: "0x2816cf15F6d2A220E789aA011D5EE4eB6c47FEbA"
+        start_block: 26821425
